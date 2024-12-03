@@ -14,13 +14,13 @@ const router = createRouter({
       component: HomeView,
       children: [
         {
-          path: "/info",
-          name: "home.info",
+          path: "",
+          name: "home.paths",
           component: ViewTab,
         },
         {
-          path: "/paths",
-          name: "home.paths",
+          path: "/info",
+          name: "home.info",
           component: ViewTab,
         },
         {
