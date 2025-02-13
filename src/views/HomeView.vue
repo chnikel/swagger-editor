@@ -16,6 +16,16 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import SchemaEditor from "@/components/SchemaEditor.vue";
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const parsed: OpenAPIV3.Document = ExampleSpec as any;
 </script>
@@ -149,6 +159,41 @@ const parsed: OpenAPIV3.Document = ExampleSpec as any;
               </TabsTrigger>
             </TabsList>
             <TabsContent value="200">
+              <FormField name="description">
+                <FormItem>
+                  <FormLabel>Description</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      :default-value="
+                        parsed.paths['/pet']?.get?.responses['200']?.description
+                      "
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    This is your public display name.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              </FormField>
+
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select a mimetype" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="application/json">
+                    application/json
+                  </SelectItem>
+                  <SelectItem value="application/xml">
+                    application/xml
+                  </SelectItem>
+                </SelectContent>
+              </Select>
+
+              <h3>Schema: Pet</h3>
+
+              <SchemaEditor />
+
               <code>
                 <pre>{{ parsed.paths["/pet"]?.get?.responses["200"] }}</pre>
               </code>
