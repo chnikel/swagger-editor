@@ -33,38 +33,24 @@ const parsed: OpenAPIV3.Document = ExampleSpec as any;
 const openApiSchema = new OpenApiSchema(ExampleSpec as any);
 
 console.log(openApiSchema.resolveRef("#/components/schemas/Tag"));
-
 </script>
 
 <template>
   <aside class="flex">
     <nav class="min-w-40 border-r p-3 space-y-1">
-      <div v-for="(methods, path) in parsed.paths">
+      <div v-for="{ path, methods } in openApiSchema.getPaths()">
         <b>{{ path }}</b>
         <div class="flex gap-1">
           <Badge
-            v-if="methods?.post"
-            class="bg-green-600"
+            v-for="method in methods"
+            :class="{
+              'bg-blue-600': method === 'get',
+              'bg-green-600': method === 'post',
+              'bg-yellow-600': method === 'put',
+              'bg-red-600': method === 'delete',
+            }"
           >
-            POST
-          </Badge>
-          <Badge
-            v-if="methods?.get"
-            class="bg-blue-600"
-          >
-            GET
-          </Badge>
-          <Badge
-            v-if="methods?.put"
-            class="bg-yellow-600"
-          >
-            PUT
-          </Badge>
-          <Badge
-            v-if="methods?.delete"
-            class="bg-red-600"
-          >
-            DELETE
+            {{ method.toUpperCase() }}
           </Badge>
         </div>
       </div>
