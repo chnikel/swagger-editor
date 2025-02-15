@@ -26,8 +26,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { OpenApiSchema } from "@/lib/OpenApiSchema";
 
 const parsed: OpenAPIV3.Document = ExampleSpec as any;
+
+const openApiSchema = new OpenApiSchema(ExampleSpec as any);
+
+console.log(openApiSchema.resolveRef("#/components/schemas/Tag"));
+
 </script>
 
 <template>
